@@ -11,7 +11,7 @@ events.onNotification(function (notification) {
     let messageText = notification.getText();
 
     // Check if the notification is from a supported app and contains a monetary value
-    if (/(nbbank|cmb.pb|homeassistant|mobileqq)/i.test(packageName) && /(元|人民币)/.test(messageText)) {
+    if (/(元|人民币)/.test(messageText)) {
         // Log the message text
         log(messageText);
 
@@ -48,12 +48,8 @@ function processTicket(messageText) {
 
         let url;
 
-        if (accountNumber) {
-            url = `qianji://publicapi/addbill?&accountname=${accountNumber}&money=${amountMatch[0]}`;
-        } else {
-            url = `qianji://publicapi/addbill?&money=${amountMatch[0]}`;
-        }
-
+        url = `qianji://publicapi/addbill?&remark=${messageText}&money=${amountMatch[0]}`;
+        
         // Start the Qianji app and open the URL to add a bill
         app.startActivity({
             data: url,
