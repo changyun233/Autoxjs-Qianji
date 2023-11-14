@@ -72,3 +72,24 @@ function categorizeTransaction(messageText) {
         return 'No match';
     }
 }
+
+// function mapping package name to bank name
+function mapString(input) {
+    // Define the mapping object
+    let mapping = {
+        "nbbank": "BNB",
+        "bankabc": "ABC",
+        // Add more mappings here
+    };
+
+    // Iterate over the mapping object
+    for (let key in mapping) {
+        // If the input string contains the current key, return the corresponding value
+        if (input.includes(key)) {
+            return mapping[key];
+        }
+    }
+
+    // If no mapping is found, return the input string
+    return input;
+}
